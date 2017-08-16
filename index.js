@@ -8,7 +8,11 @@ const moment = require('moment');
 const chrome = '"/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"';
 let configFile = './siteconfig.json';
 if(process.argv[2]) {
-  configFile = './siteconfig' + argv[2] + '.json';
+  configFile = './siteconfig_' + process.argv[2] + '.json';
+}
+if(!fs.existsSync(configFile)) {
+  console.log(configFile + ' does not exist.');
+  return;
 }
 const siteconfig = JSON.parse(fs.readFileSync(configFile, 'utf8'));
 
