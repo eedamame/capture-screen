@@ -1,3 +1,6 @@
+# captures
+capture/*
+
 # Logs
 logs
 *.log

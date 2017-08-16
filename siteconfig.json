@@ -1,0 +1,7 @@
+{
+  "basePath": "https://www.google.com/",
+  "pagelist": [
+    { "name": "01_toppage", "path": "" },
+    { "name": "02_check", "path": "check/" }
+  ]
+}
