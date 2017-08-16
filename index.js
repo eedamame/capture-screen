@@ -1,11 +1,11 @@
 // modules
 const childProcess = require('child_process');
 const fs = require('fs');
-const path = require('path');
 const moment = require('moment');
 
 // config
 const chrome = '"/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"';
+
 let configFile = './siteconfig.json';
 if(process.argv[2]) {
   configFile = './siteconfig_' + process.argv[2] + '.json';
