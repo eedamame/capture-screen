@@ -1,4 +1,5 @@
 {
+  "projectName": "google",
   "basePath": "https://www.google.com/",
   "pagelist": [
     { "name": "01_toppage", "path": "" },
