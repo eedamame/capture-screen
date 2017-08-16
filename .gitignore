@@ -1,6 +1,9 @@
 # captures
 capture/*
 
+# config
+siteconfig*.json
+
 # Logs
 logs
 *.log
