@@ -1,16 +1,22 @@
+// modules
 const childProcess = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const moment = require('moment');
 
+// config
 const chrome = '"/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"';
-const siteconfig = JSON.parse(fs.readFileSync('./siteconfig.json', 'utf8'));
+let configFile = './siteconfig.json';
+if(process.argv[2]) {
+  configFile = './siteconfig' + argv[2] + '.json';
+}
+const siteconfig = JSON.parse(fs.readFileSync(configFile, 'utf8'));
+
+// variables
 const projectName = siteconfig.projectName;
 const basePath = siteconfig.basePath;
 const paths = siteconfig.pagelist;
-
 const today = moment(Date.now()).format('YYMMDD');
-
 const projectDir = 'capture/' + projectName;
 const todaysDir = projectDir + '/' + today;
 
