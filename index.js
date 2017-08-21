@@ -4,7 +4,9 @@ const fs = require('fs');
 const moment = require('moment');
 
 // config
-const chrome = '"/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"';
+//const chrome = '"/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"';
+const chrome = '"/Applications/Chromium.app/Contents/MacOS/Chromium"';
+//const chrome = '"/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary"';
 
 let configFile = './siteconfig.json';
 if(process.argv[2]) {
@@ -60,7 +62,7 @@ if (!fs.existsSync(projectDir)) {
 ============================================================================= */
 for (var i = 0; i < paths.length; i++) {
   childProcess.exec(
-    chrome + ' --headless --disable-gpu --window-size=1280,4000 --screenshot=.\/' + todaysDir + '/'
+    chrome + ' --headless --disable-gpu --window-size=1280,4000 --allow-insecure-localhost --allow-running-insecure-content --disable-web-security --ignore-certificate-errors --screenshot=.\/' + todaysDir + '/'
       + paths[i]['name'] + '.png ' + basePath + paths[i]['path']
   );
 }
