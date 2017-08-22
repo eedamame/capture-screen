@@ -1,7 +1,10 @@
 // modules
+const util = require('util');
 const childProcess = require('child_process');
 const fs = require('fs');
 const moment = require('moment');
+
+const exec = util.promisify(childProcess.exec);
 
 // config
 //const chrome = '"/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"';
@@ -99,30 +102,24 @@ for (var i = 0; i < paths.length; i++) {
     beforeImg = projectDir + '/' + argv.compare + '/' + targetName + '.png';
   }
 
-  childProcess.exec(
-    chrome + ' ' + hcOptions.join(' ') + ' --screenshot=.\/' + todaysCapture + ' ' + targetURL
-  , function(error, stdout, stderr) {
-
-    if(argv.compare) {
-      /* ----------------------------------------------
-       * create diff image
-       * execSyncで書くと、作成したtodaysCaptureを参照できなかったので、callbackで書いてる
-      ---------------------------------------------- */
-      childProcess.exec(
-        'composite -compose difference ' + beforeImg + ' ' + todaysCapture + ' ' + diffImg
-      , function(error, stdout, stderr) {
-        childProcess.exec(
-          'identify -format "%[mean]" ' + diffImg
-        , function (error, stdout, stderr) {
+  async function capture() {
+    try {
+      if(argv.compare) {
+        await exec(chrome + ' ' + hcOptions.join(' ') + ' --screenshot=.\/' + todaysCapture + ' ' + targetURL);
+        await exec('composite -compose difference ' + beforeImg + ' ' + todaysCapture + ' ' + diffImg);
+        const { error, stdout, stderr } = await exec('identify -format "%[mean]" ' + diffImg);
           if(stdout > 0) {
-            console.log('変更があります: ' + targetName);
+            console.log('Changed: ' + targetName);
           }
-          if (error !== null) {
+          if (error !== null && error !== undefined) {
             console.log('exec error: ' + error);
           }
-        });
-      });
+      } else { // 比較のオプションがない場合はキャプチャのみ
+        await exec(chrome + ' ' + hcOptions.join(' ') + ' --screenshot=.\/' + todaysCapture + ' ' + targetURL);
+      }
+    } catch(err) {
+      throw err;
     }
-
-  });
+  }
+  capture();
 }
