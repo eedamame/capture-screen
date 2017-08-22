@@ -117,7 +117,7 @@ for (var i = 0; i < paths.length; i++) {
           if (error !== null && error !== undefined) {
             console.log('exec error: ' + error);
           }
-      } else { // 比較のオプションがない場合はキャプチャのみ
+      } else { // only screenshot without campare option
         await exec(chrome + ' ' + hcOptions.join(' ') + ' --screenshot=.\/' + todaysCapture + ' ' + targetURL);
       }
     } catch(err) {
