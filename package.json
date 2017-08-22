@@ -12,6 +12,7 @@
     "child_process": "^1.0.2",
     "fs": "^0.0.1-security",
     "lighthouse": "^2.4.0",
+    "minimist": "^1.2.0",
     "moment": "^2.18.1"
   }
 }
