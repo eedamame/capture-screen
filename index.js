@@ -111,6 +111,9 @@ for (var i = 0; i < paths.length; i++) {
           if(stdout > 0) {
             console.log('Changed: ' + targetName);
           }
+          else {// if there is no difference remove diff file
+            await exec('rm ' + diffImg);
+          }
           if (error !== null && error !== undefined) {
             console.log('exec error: ' + error);
           }
